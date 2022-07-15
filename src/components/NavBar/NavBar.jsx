@@ -71,7 +71,7 @@ const NavBar = () => {
         </Toolbar>
       </AppBar>
       <div>
-        <nav className="classes.drawer">
+        <nav className={classes.drawer}>
           {isMobile ? (
             <Drawer
               anchor="right"
