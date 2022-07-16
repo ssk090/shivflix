@@ -28,10 +28,12 @@ const redLogo =
 const blueLogo =
   "https://fontmeme.com/permalink/220714/e778e54a8563119bee31583d0854ed05.png";
 const Sidebar = ({ setMobileOpen }) => {
-  const { data, isFetching } = useGetGenresQuery();
-  console.log(data);
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.currentGenreOrCategory
+  );
   const theme = useTheme();
   const classes = useStyles();
+  const { data, isFetching } = useGetGenresQuery();
   const dispatch = useDispatch();
   return (
     <>
