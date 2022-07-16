@@ -5,21 +5,18 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
+  Box,
+  CircularProgress,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useStyles from "./styles";
+import { useGetGenresQuery } from "../../services/TMDB.js";
 
 const categories = [
   { label: "Popular", value: "popular" },
   { label: "Top Rated", value: "top_rated" },
   { label: "Upcoming", value: "upcoming" },
-];
-const demoCategories = [
-  { label: "Action", value: "action" },
-  { label: "Comedy", value: "comedy" },
-  { label: "Horror", value: "horror" },
-  { label: "Animation", value: "animation" },
 ];
 
 const redLogo =
@@ -27,6 +24,8 @@ const redLogo =
 const blueLogo =
   "https://fontmeme.com/permalink/220714/e778e54a8563119bee31583d0854ed05.png";
 const Sidebar = ({ setMobileOpen }) => {
+  const { data, isFetching } = useGetGenresQuery();
+  console.log(data);
   const theme = useTheme();
   const classes = useStyles();
   return (
@@ -51,13 +50,19 @@ const Sidebar = ({ setMobileOpen }) => {
       </List>
       <Divider />
       <ListSubheader>Genres</ListSubheader>
-      {demoCategories.map(({ label, value }) => (
-        <Link key={value} className={classes.links} to="/">
-          <ListItem onClick={() => {}} button>
-            <ListItemText primary={label} />
-          </ListItem>
-        </Link>
-      ))}
+      {isFetching ? (
+        <Box display={"flex"} justifyContent={"center"}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        data.genres.map(({ name, id }) => (
+          <Link key={name} className={classes.links} to="/">
+            <ListItem onClick={() => {}} button>
+              <ListItemText primary={name} />
+            </ListItem>
+          </Link>
+        ))
+      )}
     </>
   );
 };
