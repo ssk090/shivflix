@@ -7,11 +7,13 @@ import {
   ListSubheader,
   Box,
   CircularProgress,
+  ListItemIcon,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useStyles from "./styles";
 import { useGetGenresQuery } from "../../services/TMDB.js";
+import genreIcons from "../../assets/genres";
 
 const categories = [
   { label: "Popular", value: "popular" },
@@ -43,6 +45,13 @@ const Sidebar = ({ setMobileOpen }) => {
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to="/">
             <ListItem onClick={() => {}} button>
+              <ListItemIcon>
+                <img
+                  src={genreIcons[label.toLowerCase()]}
+                  className={classes.genreImage}
+                  height={30}
+                />
+              </ListItemIcon>
               <ListItemText primary={label} />
             </ListItem>
           </Link>
@@ -58,6 +67,13 @@ const Sidebar = ({ setMobileOpen }) => {
         data.genres.map(({ name, id }) => (
           <Link key={name} className={classes.links} to="/">
             <ListItem onClick={() => {}} button>
+              <ListItemIcon>
+                <img
+                  src={genreIcons[name.toLowerCase()]}
+                  className={classes.genreImage}
+                  height={30}
+                />
+              </ListItemIcon>
               <ListItemText primary={name} />
             </ListItem>
           </Link>
