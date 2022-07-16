@@ -23,10 +23,14 @@ import {
   Remove,
   ArrowBack,
 } from "@mui/icons-material";
-import { useGetMovieQuery } from "../../services/TMDB";
+import {
+  useGetMovieQuery,
+  useGetRecommendationsQuery,
+} from "../../services/TMDB";
 import useStyles from "./style";
 import genreIcons from "../../assets/genres";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
+import MovieList from "../MovieList/MovieList";
 
 const isMovieFavorited = true;
 const isMovieWatchlisted = false;
@@ -39,6 +43,12 @@ const MovieInformation = () => {
   const { data, isFetching, error } = useGetMovieQuery(id);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { data: recommendations, isFetching: isRecommendationsFetching } =
+    useGetRecommendationsQuery({
+      list: "/recommendations",
+      id: id,
+    });
+  console.log("recc", recommendations);
 
   if (isFetching) {
     return (
@@ -216,6 +226,16 @@ const MovieInformation = () => {
           </div>
         </Grid>
       </Grid>
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h3" gutterBottom align="center">
+          More Like This
+        </Typography>
+        {recommendations ? (
+          <MovieList movies={recommendations} numberOfMovies={12} />
+        ) : (
+          <Box>"Not Found"</Box>
+        )}
+      </Box>
     </Grid>
   );
 };
