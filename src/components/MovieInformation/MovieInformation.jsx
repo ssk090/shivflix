@@ -48,7 +48,7 @@ const MovieInformation = () => {
       list: "/recommendations",
       id: id,
     });
-  console.log("recc", recommendations);
+  const [open, setOpen] = useState(false);
 
   if (isFetching) {
     return (
@@ -186,7 +186,11 @@ const MovieInformation = () => {
                 >
                   IMDB
                 </Button>
-                <Button onClick={() => {}} href="#" endIcon={<Theaters />}>
+                <Button
+                  onClick={() => setOpen(true)}
+                  href="#"
+                  endIcon={<Theaters />}
+                >
                   Trailer
                 </Button>
               </ButtonGroup>
@@ -236,6 +240,22 @@ const MovieInformation = () => {
           <Box>"Not Found"</Box>
         )}
       </Box>
+      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        {data.videos.results.length > 0 && (
+          <iframe
+            autoPlay
+            className={classes.video}
+            frameBorder="0"
+            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow="autoplay"
+          />
+        )}
+      </Modal>
     </Grid>
   );
 };
