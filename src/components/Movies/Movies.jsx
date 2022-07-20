@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, CircularProgress, Typography } from "@mui/material";
 
-import { MovieList } from "..";
+import { MovieList, Pagination } from "..";
 
 import { useGetMoviesQuery } from "../../services/TMDB";
 import { useSelector } from "react-redux";
@@ -42,6 +42,11 @@ const Movies = () => {
   return (
     <div>
       <MovieList movies={data} />
+      <Pagination
+        currentPage={page}
+        setPage={setPage}
+        totalPages={data.total_pages}
+      />
     </div>
   );
 };
