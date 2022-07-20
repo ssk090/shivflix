@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 
 import { MovieList, Pagination } from "..";
 
@@ -7,6 +12,8 @@ import { useGetMoviesQuery } from "../../services/TMDB";
 import { useSelector } from "react-redux";
 
 const Movies = () => {
+  const lg = useMediaQuery((theme) => theme.breakpoints.only("lg"));
+  const numberOfMovies = lg ? 16 : 18;
   const [page, setPage] = useState(1);
   const { genreIdOrCategoryName, searchQuery } = useSelector(
     (state) => state.currentGenreOrCategory
@@ -41,7 +48,7 @@ const Movies = () => {
 
   return (
     <div>
-      <MovieList movies={data} />
+      <MovieList movies={data} numberOfMovies={numberOfMovies} />
       <Pagination
         currentPage={page}
         setPage={setPage}
