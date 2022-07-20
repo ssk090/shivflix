@@ -8,6 +8,7 @@ import { searchMovie } from "../../features/currentGenreOrCategory";
 
 const Search = () => {
   const classes = useStyles();
+  const location = useLocation();
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const handleKeyDown = (event) => {
@@ -15,6 +16,7 @@ const Search = () => {
       dispatch(searchMovie(query));
     }
   };
+  if (location.pathname != "/") return null;
   return (
     <div className={classes.searchContainer}>
       <TextField
