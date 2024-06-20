@@ -1,5 +1,6 @@
 # Shivflix - JSM Pro
 try here : https://shivflix.netlify.app/
+(for some reasons the API is working with a VPN)
 
 - Built a comprehensive Netflix-like platform that incorporates key features of IMDb, such as movie and TV show information and ratings
 - Utilized React, Hooks, and Redux Toolkit to create a seamless user experience with dynamic and interactive components
